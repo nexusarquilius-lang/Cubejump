@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no" />
+  <meta name="theme-color" content="#111827" />
+  <title>Cubejump</title>
+  <link rel="manifest" href="manifest.json" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main id="app">
+    <header class="topbar">
+      <div class="brand">CUBEJUMP</div>
+      <div id="status" class="status">V1</div>
+    </header>
+
+    <section id="home" class="screen active">
+      <div class="hero-card">
+        <div class="cube-logo" aria-hidden="true"></div>
+        <h1>Cubejump</h1>
+        <p>6 niveles, 3 cristales por nivel y editor de niveles.</p>
+        <div class="hero-actions">
+          <button id="playBtn" class="primary big">Jugar</button>
+          <button id="editorBtn" class="secondary big">Editor</button>
+        </div>
+      </div>
+      <div class="small-note">Funciona sin conexión después de cargarlo. El progreso se guarda en este dispositivo.</div>
+    </section>
+
+    <section id="levels" class="screen">
+      <div class="panel-heading">
+        <button class="icon-btn back" data-back="home" aria-label="Volver">←</button>
+        <h2>Niveles</h2>
+        <div class="spacer"></div>
+      </div>
+      <div id="levelGrid" class="level-grid"></div>
+    </section>
+
+    <section id="game" class="screen game-screen">
+      <div class="game-hud">
+        <button id="gameBackBtn" class="icon-btn">←</button>
+        <div id="levelTitle" class="hud-title">Nivel 1</div>
+        <div id="crystalHud" class="crystal-hud">◆ 0/3</div>
+      </div>
+      <div class="canvas-wrap">
+        <canvas id="gameCanvas" width="960" height="540" aria-label="Área de juego"></canvas>
+        <div id="tapHint" class="tap-hint">TOCA PARA SALTAR</div>
+        <div id="resultOverlay" class="result-overlay hidden">
+          <div class="result-card">
+            <h2 id="resultTitle">Nivel completado</h2>
+            <p id="resultText">Cristales: 3/3</p>
+            <div class="result-actions">
+              <button id="retryBtn" class="secondary">Reintentar</button>
+              <button id="nextBtn" class="primary">Siguiente</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <button id="jumpBtn" class="jump-btn">SALTAR</button>
+    </section>
+
+    <section id="editor" class="screen editor-screen">
+      <div class="panel-heading">
+        <button id="editorBackBtn" class="icon-btn" aria-label="Volver">←</button>
+        <h2>Editor de niveles</h2>
+        <button id="editorHelpBtn" class="icon-btn" aria-label="Ayuda">?</button>
+      </div>
+
+      <div class="editor-toolbar" id="editorToolbar">
+        <button data-tool="block" class="tool active">Bloque</button>
+        <button data-tool="spike" class="tool">Pincho</button>
+        <button data-tool="platform" class="tool">Plataforma</button>
+        <button data-tool="crystal" class="tool">Cristal</button>
+        <button data-tool="erase" class="tool">Borrar</button>
+      </div>
+
+      <div class="editor-canvas-wrap">
+        <canvas id="editorCanvas" width="960" height="540" aria-label="Editor de nivel"></canvas>
+      </div>
+
+      <div class="editor-bottom">
+        <button id="panLeftBtn" class="secondary">◀ Mover</button>
+        <button id="panRightBtn" class="secondary">Mover ▶</button>
+        <button id="undoBtn" class="secondary">Deshacer</button>
+        <button id="saveBtn" class="primary">Guardar</button>
+        <button id="testBtn" class="primary">Probar</button>
+      </div>
+      <div id="editorMessage" class="editor-message">Toca la cuadrícula para colocar objetos.</div>
+    </section>
+
+    <div id="toast" class="toast hidden"></div>
+  </main>
+
+  <script src="game.js"></script>
+</body>
+</html>
