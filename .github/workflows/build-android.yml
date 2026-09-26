@@ -1,0 +1,55 @@
+name: Build Cubejump APK
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Descargar Cubejump
+        uses: actions/checkout@v4
+
+      - name: Preparar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Preparar Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '21'
+
+      - name: Instalar Capacitor
+        run: npm install
+
+      - name: Preparar archivos del juego
+        run: |
+          mkdir -p www
+          cp index.html www/
+          cp game.js www/
+          cp styles.css www/
+          cp manifest.json www/
+          cp service-worker.js www/
+
+      - name: Crear proyecto Android
+        run: npx cap add android
+
+      - name: Sincronizar Cubejump
+        run: npx cap sync android
+
+      - name: Dar permiso a Gradle
+        run: chmod +x android/gradlew
+
+      - name: Compilar APK
+        run: |
+          cd android
+          ./gradlew assembleDebug
+
+      - name: Guardar APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: Cubejump-Android
+          path: android/app/build/outputs/apk/debug/app-debug.apk
